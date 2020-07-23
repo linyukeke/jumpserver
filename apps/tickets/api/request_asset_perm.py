@@ -55,7 +55,7 @@ class RequestAssetPermTicketViewSet(JMSModelViewSet):
             q |= (Q(related_admin_orgs__id=org_id) & (Q(related_admin_orgs__users=user) |
                                                       Q(related_admin_orgs__admins=user) |
                                                       Q(related_admin_orgs__auditors=user)))
-        org_admins = User.objects.filter(q)
+        org_admins = User.objects.filter(q).distinct()
 
         return self.get_paginated_response_with_query_set(org_admins)
 
